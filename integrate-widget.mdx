@@ -1,0 +1,34 @@
+---
+title: "Integrate Widget"
+description: "Embed and initialize the KYC widget in your frontend application."
+---
+
+After receiving `widget_data` from the KYC request, embed and initialize the widget.
+
+### Embed the Widget
+
+```html
+<div id="forte-payments-widget-container"></div>
+<script type="module" async src="https://dev-forte-payments-cdn.dev.lemax.com/forte-payments-widget.js"></script>
+```
+
+> ⚠️ Do not cache the widget. Always load it fresh from the CDN.
+
+### Initialize the Widget
+
+```html
+<script>
+if (data) {
+  (function init() {
+    window.initFortePaymentsWidget
+      ? window.initFortePaymentsWidget({
+          containerId: 'forte-payments-widget-container',
+          data
+        })
+      : setTimeout(init, 10);
+  })();
+}
+</script>
+```
+
+> 🧪 Use the OTP `947293` in sandbox mode to bypass email verification.

@@ -1,0 +1,2916 @@
+{
+  "components": {
+    "responses": {},
+    "schemas": {
+      "transaction_type_buy_ft": {
+        "description": "Request payload for `BUY_FT` transaction type",
+        "example": {
+          "buyer": {
+            "id": "unique_customer_id",
+            "wallet": {
+              "address": "0xaac17f958d2ee523a2206206994597c13d831ec2",
+              "blockchain": "amoy"
+            }
+          },
+          "idempotency_key": "unique_string",
+          "items": [
+            {
+              "buy_asset": {
+                "code": "POL"
+              }
+            }
+          ],
+          "transaction_type": "BUY_FT"
+        },
+        "properties": {
+          "buyer": {
+            "description": "Details of the customer purchasing the item. (Receiver of purchasing tokens)",
+            "properties": {
+              "id": {
+                "description": "The unique identifier representing the customer.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "description": "Customer's wallet that will receive the tokens.",
+                "properties": {
+                  "address": {
+                    "description": "The address of the crypto wallet.",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "The blockchain of the wallet.",
+                    "enum": [
+                      "ethereum",
+                      "sepolia",
+                      "polygon",
+                      "amoy",
+                      "solana",
+                      "solana_devnet",
+                      "base",
+                      "base_sepolia",
+                      "avalanche_c",
+                      "avalanche_fuji",
+                      "binance_smart_chain",
+                      "binance_smart_chain_testnet",
+                      "arbitrum_one",
+                      "arbitrum_sepolia"
+                    ],
+                    "example": "amoy",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "wallet",
+              "id"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "idempotency_key": {
+            "description": "A unique value provided to ensure the operation is idempotent.",
+            "example": "idempotency-key-1",
+            "maxLength": 1000,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "items": {
+            "items": {
+              "description": "Fungible Token Item",
+              "properties": {
+                "buy_asset": {
+                  "properties": {
+                    "code": {
+                      "description": "Asset code in Novapay system",
+                      "enum": [
+                        "POL"
+                      ],
+                      "example": "POL",
+                      "maxLength": 16,
+                      "type": "string",
+                      "x-struct": null,
+                      "x-validate": null
+                    }
+                  },
+                  "required": [
+                    "code"
+                  ],
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "transaction_type": {
+            "description": "Transaction type for buying Fungible Tokens.",
+            "enum": [
+              "BUY_FT"
+            ],
+            "example": "BUY_FT",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "buyer",
+          "idempotency_key",
+          "items",
+          "transaction_type"
+        ],
+        "title": "transaction_type_buy_ft",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyFT",
+        "x-validate": null
+      },
+      "evm_based_nft_data": {
+        "description": "NFT data object for ethereum or polygon denominated NFTs.",
+        "properties": {
+          "contract_address": {
+            "description": "Contract address of the collection that the NFT belongs to.",
+            "example": "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "token_id": {
+            "description": "Unique `token_id` in the given `contract_address` representing the NFT being purchased.",
+            "example": "7804",
+            "maxLength": 78,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "contract_address",
+          "token_id"
+        ],
+        "title": "evm_based_nft_data",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFT.NFTData.EVM",
+        "x-validate": null
+      },
+      "contract_nft_minting_data": {
+        "description": "NFT minting data object for contract.",
+        "properties": {
+          "nonce": {
+            "description": "Unique nonce for minting transaction call-data.",
+            "example": "1234",
+            "maxLength": 78,
+            "minLength": 1,
+            "pattern": "^[0-9]{1,78}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "protocol": {
+            "description": "Protocol for nft minting.",
+            "enum": [
+              "contract_batch_mint"
+            ],
+            "example": "contract_batch_mint",
+            "maxLength": 100,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "protocol_address": {
+            "description": "Protocol address for nft to mint.",
+            "example": "0x9dbeec38780a6ceb9fa1314566ae73d8812ab4da",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "signature": {
+            "description": "Signature of minting transaction call-data.",
+            "example": "0x8c2edd22d96ac116299b31d6a5b4496840ceb0bb260eca13e0573e485dcf4747aaaa93011132952910bea6a485f1e479db819450f90b1e14dd934e8f06ab6ea51b",
+            "maxLength": 132,
+            "minLength": 132,
+            "pattern": "^0x[a-fA-F0-9]{130}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "token_ids": {
+            "description": "Stringified IDs of the token mints.",
+            "example": [
+              "10",
+              "20"
+            ],
+            "items": {
+              "maxLength": 78,
+              "minLength": 1,
+              "pattern": "^[0-9]{1,78}$",
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "nonce",
+          "protocol",
+          "protocol_address",
+          "signature",
+          "token_ids"
+        ],
+        "title": "contract_nft_minting_data",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFTMint.ContractMintData",
+        "x-validate": null
+      },
+      "not_found": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error, should not be used programmatically",
+                "example": "Message explaining the issue in human readable form.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "Status description",
+                "example": "Not Found",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code",
+                "example": 404,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "not_found",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.JsonErrorResponse.not_found",
+        "x-validate": null
+      },
+      "redirect_created": {
+        "example": {
+          "data": {
+            "redirect_url": "https://redirect.forte.io/0f7660c1-a106-481f-acf9-1848e98a7230?redirect_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0ZSI6IjRnd1ZRWnFDV0FMYXBHZVVvS0tpQm4zRVIyWkRweDExIiwiZXhwIjoxNjkyMDQ1MTI5LCJpc3MiOiJmb3J0ZV9hdXRoX3N2YyIsInRva2VuX3R5cGUiOiJleHRlcm5hbF90b2tlbiJ9.avRqsX_ohBVaZ-3i1eCUWkqPrJhuTafjklh5BJ4oevQ"
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "redirect_url": {
+                "description": "The url returned to the merchant to initialize the payment widget in a redirect flow.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "redirect_url"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "redirect_created",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreateRedirectResponse",
+        "x-validate": null
+      },
+      "create_payment_intent_banned_customer_response": {
+        "example": {
+          "data": {
+            "error_code": "ERR01",
+            "flow": "PAYMENT",
+            "notes": [],
+            "payment_intent_id": null,
+            "widget_data": null
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "Error code that indicates to the widget that customer is banned.",
+                "enum": [
+                  "ERR01"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "PAYMENT"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "notes": {
+                "description": "Human-friendly notes for alerting/logging.\n                Should not be used for any programmatic interpretation. By default, it is an empty list.",
+                "items": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "type": "array",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "payment_intent_id": {
+                "description": "`null` value.",
+                "format": "uuid",
+                "maxLength": 36,
+                "minLength": 36,
+                "nullable": true,
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "`null` value.",
+                "maxLength": 100000,
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "error_code",
+              "widget_data",
+              "payment_intent_id",
+              "flow",
+              "notes"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "create_payment_intent_banned_customer_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentResponse.Banned",
+        "x-validate": null
+      },
+      "start_kyc_success_response": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/kyc_workflow_started"
+          }
+        ],
+        "title": "start_kyc_success_response",
+        "type": "object",
+        "x-struct": null,
+        "x-validate": null
+      },
+      "ERR02": {
+        "properties": {
+          "error": {
+            "description": "Error response for when the payment intent amount is less than the minimum value.",
+            "properties": {
+              "code": {
+                "description": "Amount is below minimum.",
+                "enum": [
+                  "ERR02"
+                ],
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "message": {
+                "description": "Extra information about the error. Should **not** be used programmatically.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "HTTP status description.",
+                "example": "Bad Request",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code.",
+                "example": 400,
+                "format": "int32",
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "code",
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ERR02",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.ErrorResponse.ERR02",
+        "x-validate": null
+      },
+      "kyc_started": {
+        "example": {
+          "data": {
+            "error_code": null,
+            "flow": "KYC_OCC",
+            "widget_data": "eyJhY2Nlc3NfdG9rZW4iOiAiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmhjSEJmYVdRaU9pSmxPRFk0WWpCak55MDFObVJtTFRReFpUUXRZVFpsTkMwMk9ESm1PVEkyTUdVM1kySWlMQ0pqZFhOMGIyMWxjbDlwWkNJNklqVTBZbVUxWXpkakxURTFNbVF0TkdaaFppMDROVFl6TFRObE9EZGpNR0l5T1dNME1pSXNJbVZ0WVdsc1gyRmtaSEpsYzNNaU9pSjBaWE4wYVc1blFHNXZjblJvWlhKdWJHRmljeTVqWVNJc0ltVnRZV2xzWDNabGNtbG1hV1ZrSWpwbVlXeHpaU3dpWlhod0lqb3hOamt5TURRMU1USTVMQ0pwYzNNaU9pSm1iM0owWlY5aGRYUm9YM04yWXlJc0ltMWxjbU5vWVc1MFgybGtJam9pTTJWak1qYzNNV0V0Wm1VeFppMDBOR1U1TFdGall6VXRPV0ZtTVdFNU9XVm1aR1l4SWl3aWRHOXJaVzVmZEhsd1pTSTZJbVY0ZEdWeWJtRnNYM1J2YTJWdUluMC5xUjRydmVMejVFQUt1eE91cTFOS0JhQ0ktM2hoMFVRVWlMQmpNaC1WT2QwIiwgImt5Y19hdHRyaWJ1dGVzIjogWyJOQU1FIiwgIkFERFJFU1MiLCAiRE9CIiwgIlBIT05FX05VTUJFUiJdLCAia3ljX3Nlc3Npb24iOiAiNzcyNTVhYmEtZmE3NS00NzgzLWEyYmItNjQ3MWQzZmFlM2QzIn0="
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "Provided for the widget to consume and display the appropriate page.\n              `null` value for cases where kyc process is successfully started.",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "KYC"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "It's Base64 encoded format for widget initialization.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "widget_data",
+              "flow",
+              "error_code"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "kyc_started",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.StartKycResponse.StartKycSuccessResponse",
+        "x-validate": null
+      },
+      "unprocessable_entity": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error, should not be used programmatically",
+                "example": "Message explaining the issue in human readable form.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "Status description",
+                "example": "Unprocessable Entity",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code",
+                "example": 422,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "unprocessable_entity",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.JsonErrorResponse.unprocessable_entity",
+        "x-validate": null
+      },
+      "magic_eden_listing_data": {
+        "description": "Listing data object for MagicEden Marketplace.",
+        "properties": {
+          "auction_house": {
+            "description": "Auction house address",
+            "example": "E8cU1WiRWjanGxmn96ewBgk9vPTcL6AEZ1t6F6fkgUWe",
+            "maxLength": 44,
+            "minLength": 32,
+            "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "protocol": {
+            "description": "Protocol to use for fulfillment",
+            "enum": [
+              "magiceden"
+            ],
+            "example": "magiceden",
+            "maxLength": 100,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "token_address": {
+            "description": "Current owner account of token",
+            "example": "EtrLSJKxu8wkVnV9uDYa1iWgpwisfGTwA4SFbYU7ZxLN",
+            "maxLength": 44,
+            "minLength": 32,
+            "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "auction_house",
+          "token_address",
+          "protocol"
+        ],
+        "title": "magic_eden_listing_data",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFT.ListingData.MagicEden",
+        "x-validate": null
+      },
+      "internal_server_error": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error, should not be used programmatically",
+                "example": "Message explaining the issue in human readable form.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "Status description",
+                "example": "Internal Server Error",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code",
+                "example": 500,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "internal_server_error",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.JsonErrorResponse.internal_server_error",
+        "x-validate": null
+      },
+      "transaction_type_buy_nft_mint": {
+        "description": "Request payload for `BUY_NFT_MINT` transaction type",
+        "example": {
+          "blockchain": "base",
+          "buyer": {
+            "id": "unique_customer_id",
+            "wallet": {
+              "address": "0xaac17f958d2ee523a2206206994597c13d831ec2",
+              "blockchain": "base"
+            }
+          },
+          "currency": "USD",
+          "idempotency_key": "unique_string",
+          "items": [
+            {
+              "amount": "1.70",
+              "id": "item id",
+              "image_url": "https://someurl.io/example.png",
+              "mint_data": {
+                "nonce": "1234",
+                "protocol": "contract_batch_mint",
+                "protocol_address": "0x9dbeec38780a6ceb9fa1314566ae73d8812ab4da",
+                "signature": "0x8c2edd22d96ac116299b31d6a5b4496840ceb0bb260eca13e0573e485dcf4747aaaa93011132952910bea6a485f1e479db819450f90b1e14dd934e8f06ab6ea51b",
+                "token_ids": [
+                  "1",
+                  "2"
+                ]
+              },
+              "title": "short title"
+            }
+          ],
+          "transaction_type": "BUY_NFT_MINT"
+        },
+        "properties": {
+          "blockchain": {
+            "description": "The blockchain that the items are going to be minted on.",
+            "enum": [
+              "base",
+              "base_sepolia"
+            ],
+            "example": "base",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "buyer": {
+            "description": "Details of the customer purchasing the item, where the minted NFTs will be sent.",
+            "properties": {
+              "id": {
+                "description": "The unique identifier representing the customer.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "description": "Customer's wallet that will receive the NFT.",
+                "properties": {
+                  "address": {
+                    "description": "The address of the crypto wallet.",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "The blockchain of the wallet.",
+                    "enum": [
+                      "base",
+                      "base_sepolia"
+                    ],
+                    "example": "base",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "wallet",
+              "id"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "currency": {
+            "description": "The reporting currency for the NFT mint, currently only supporting USD.",
+            "enum": [
+              "EUR",
+              "USD"
+            ],
+            "example": "USD",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "idempotency_key": {
+            "description": "A unique value provided to ensure the operation is idempotent.",
+            "example": "idempotency-key-1",
+            "maxLength": 1000,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "items": {
+            "items": {
+              "properties": {
+                "amount": {
+                  "description": "Decimal Amount of the listed NFT, in the specified currency. Note precision limits: 8 (POL, SOL), 6 (ETH).",
+                  "example": "100.00",
+                  "maxLength": 100,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "id": {
+                  "description": "ID of the item.",
+                  "example": "item-id-1",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "image_url": {
+                  "description": "URL of the image to display for the NFT.",
+                  "example": "https://some-image.url/image.png",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "mint_data": {
+                  "description": "The specific merchant data for the NFT minting.",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/contract_nft_minting_data"
+                    }
+                  ],
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "title": {
+                  "description": "Name of the NFT.",
+                  "example": "Item Title",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "required": [
+                "amount",
+                "image_url",
+                "title",
+                "mint_data"
+              ],
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "transaction_type": {
+            "description": "Transaction type for minting Non-Fungible Tokens.",
+            "enum": [
+              "BUY_NFT_MINT"
+            ],
+            "example": "BUY_NFT_MINT",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "blockchain",
+          "buyer",
+          "currency",
+          "idempotency_key",
+          "items",
+          "transaction_type"
+        ],
+        "title": "transaction_type_buy_nft_mint",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFTMint",
+        "x-validate": null
+      },
+      "ERR04": {
+        "properties": {
+          "error": {
+            "description": "Error response for when the payment is already submitted for the specific intent request.",
+            "properties": {
+              "code": {
+                "description": "Payment already submitted.",
+                "enum": [
+                  "ERR04"
+                ],
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "message": {
+                "description": "Extra information about the error. Should **not** be used programmatically.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "HTTP status description.",
+                "example": "Conflict",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code.",
+                "example": 409,
+                "format": "int32",
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "code",
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ERR04",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.ErrorResponse.ERR04",
+        "x-validate": null
+      },
+      "transaction_type_buy_nft": {
+        "description": "Request payload for `BUY_NFT` transaction type",
+        "example": {
+          "blockchain": "sepolia",
+          "buyer": {
+            "id": "unique_customer_id",
+            "wallet": {
+              "address": "0xaac17f958d2ee523a2206206994597c13d831ec2",
+              "blockchain": "sepolia"
+            }
+          },
+          "currency": "ETH",
+          "idempotency_key": "unique_string",
+          "items": [
+            {
+              "amount": "1.70",
+              "id": "item id",
+              "image_url": "https://someurl.io/example.png",
+              "listing_data": {
+                "order_hash": "0x6e6f72746865726e6c6162732d3e616c6973696e6162686e6f72746865726e6c",
+                "protocol": "seaport",
+                "protocol_address": "0x0000000000000068f116a894984e2db1123eb395"
+              },
+              "nft_data": {
+                "contract_address": "0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb",
+                "token_id": "7804"
+              },
+              "title": "short title"
+            }
+          ],
+          "seller": {
+            "wallet": {
+              "address": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+              "blockchain": "sepolia"
+            }
+          },
+          "transaction_type": "BUY_NFT"
+        },
+        "properties": {
+          "blockchain": {
+            "description": "The blockchain that the items are denominated in.",
+            "enum": [
+              "ethereum",
+              "sepolia",
+              "polygon",
+              "amoy",
+              "solana",
+              "solana_devnet",
+              "base",
+              "base_sepolia",
+              "avalanche_c",
+              "avalanche_fuji",
+              "binance_smart_chain",
+              "binance_smart_chain_testnet",
+              "arbitrum_one",
+              "arbitrum_sepolia"
+            ],
+            "example": "sepolia",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "buyer": {
+            "description": "Details of the customer purchasing the item. (Receiver of purchasing NFT)",
+            "properties": {
+              "id": {
+                "description": "The unique identifier representing the customer.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "description": "Customer's wallet that will receive the NFT.",
+                "properties": {
+                  "address": {
+                    "description": "The address of the crypto wallet.",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "The blockchain of the wallet.",
+                    "enum": [
+                      "ethereum",
+                      "sepolia",
+                      "polygon",
+                      "amoy",
+                      "solana",
+                      "solana_devnet",
+                      "base",
+                      "base_sepolia",
+                      "avalanche_c",
+                      "avalanche_fuji",
+                      "binance_smart_chain",
+                      "binance_smart_chain_testnet",
+                      "arbitrum_one",
+                      "arbitrum_sepolia"
+                    ],
+                    "example": "sepolia",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "wallet",
+              "id"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "currency": {
+            "description": "The denomination currency of the NFT.",
+            "enum": [
+              "ETH",
+              "USDC_ETH",
+              "POL",
+              "USDC_POLYGON",
+              "SOL",
+              "BASE_ETH",
+              "AVAX",
+              "BNB",
+              "ARB_ETH"
+            ],
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "idempotency_key": {
+            "description": "A unique value provided to ensure the operation is idempotent.",
+            "example": "idempotency-key-1",
+            "maxLength": 1000,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "items": {
+            "items": {
+              "properties": {
+                "amount": {
+                  "description": "Decimal Amount of the listed NFT, in the specified currency. Note precision limits: 8 (POL, SOL), 6 (ETH).",
+                  "example": "100.00",
+                  "maxLength": 100,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "id": {
+                  "description": "ID of the item.",
+                  "example": "item-id-1",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "image_url": {
+                  "description": "URL of the image to display for the NFT.",
+                  "example": "https://some-image.url/image.png",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "listing_data": {
+                  "description": "The specific marketplace data for the NFT listing.",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/seaport_listing_data"
+                    },
+                    {
+                      "$ref": "#/components/schemas/magic_eden_listing_data"
+                    }
+                  ],
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "nft_data": {
+                  "description": "The NFT metadata needed to facilitate the purchase.",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/evm_based_nft_data"
+                    },
+                    {
+                      "$ref": "#/components/schemas/solana_nft_data"
+                    }
+                  ],
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "title": {
+                  "description": "Name of the NFT.",
+                  "example": "Item Title",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "required": [
+                "amount",
+                "image_url",
+                "title",
+                "nft_data",
+                "listing_data"
+              ],
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "seller": {
+            "description": "Details of the NFT seller.",
+            "properties": {
+              "id": {
+                "description": "The optional unique identifier representing the seller.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "description": "The wallet of the seller who have listed the NFT.",
+                "properties": {
+                  "address": {
+                    "description": "The address of the crypto wallet.",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "The blockchain of the wallet.",
+                    "enum": [
+                      "ethereum",
+                      "sepolia",
+                      "polygon",
+                      "amoy",
+                      "solana",
+                      "solana_devnet",
+                      "base",
+                      "base_sepolia",
+                      "avalanche_c",
+                      "avalanche_fuji",
+                      "binance_smart_chain",
+                      "binance_smart_chain_testnet",
+                      "arbitrum_one",
+                      "arbitrum_sepolia"
+                    ],
+                    "example": "sepolia",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "wallet"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "transaction_type": {
+            "description": "Transaction type for buying Non-Fungible Tokens.",
+            "enum": [
+              "BUY_NFT"
+            ],
+            "example": "BUY_NFT",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "blockchain",
+          "buyer",
+          "currency",
+          "idempotency_key",
+          "items",
+          "seller",
+          "transaction_type"
+        ],
+        "title": "transaction_type_buy_nft",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFT",
+        "x-validate": null
+      },
+      "get_kyc_attributes_response": {
+        "example": {
+          "data": {
+            "kyc": {
+              "attributes": [
+                "NAME",
+                "ADDRESS",
+                "DOB",
+                "PHONE_NUMBER"
+              ],
+              "session": "77255aba-fa75-4783-a2bb-6471d3fae3d3",
+              "status": "pending"
+            }
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "kyc": {
+                "properties": {
+                  "attributes": {
+                    "description": "Array of KYC attributes of all ADU's that the customer is yet to submit.",
+                    "items": {
+                      "type": "string",
+                      "x-struct": null,
+                      "x-validate": null
+                    },
+                    "type": "array",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "session": {
+                    "description": "KYC session ID.",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "status": {
+                    "description": "KYC Status of the customer.",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "session",
+              "status",
+              "attributes"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "get_kyc_attributes_response",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.GetKycAttributesResponse",
+        "x-validate": null
+      },
+      "create_payment_intent_kyc_required_response": {
+        "example": {
+          "data": {
+            "error_code": "ERR06",
+            "flow": "PAYMENT",
+            "notes": [],
+            "payment_intent_id": "0f7660c1-a106-481f-acf9-1848e98a7230",
+            "widget_data": "eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGNIQmZhV1FpT2lKbE9EWTRZakJqTnkwMU5tUm1MVFF4WlRRdFlUWmxOQzAyT0RKbU9USTJNR1UzWTJJaUxDSmpkWE4wYjIxbGNsOXBaQ0k2SWpVMFltVTFZemRqTFRFMU1tUXROR1poWmkwNE5UWXpMVE5sT0Rkak1HSXlPV00wTWlJc0ltVnRZV2xzWDJGa1pISmxjM01pT2lKMFpYTjBhVzVuUUc1dmNuUm9aWEp1YkdGaWN5NWpZU0lzSW1WdFlXbHNYM1psY21sbWFXVmtJanBtWVd4elpTd2laWGh3SWpveE5qa3lNRFExTVRJNUxDSnBjM01pT2lKbWIzSjBaVjloZFhSb1gzTjJZeUlzSW0xbGNtTm9ZVzUwWDJsa0lqb2lNMlZqTWpjM01XRXRabVV4WmkwME5HVTVMV0ZqWXpVdE9XRm1NV0U1T1dWbVpHWXhJaXdpZEc5clpXNWZkSGx3WlNJNkltVjRkR1Z5Ym1Gc1gzUnZhMlZ1SW4wLnFSNHJ2ZUx6NUVBS3V4T3VxMU5LQmFDSS0zaGgwVVFVaUxCak1oLVZPZDAiLCJpdGVtIjp7ImFtb3VudCI6IjEwMC4wMCIsImN1cnJlbmN5IjoiVVNEIiwiZGVzYyI6IlN0YXJ0ZXIgU2V0IEEiLCJmZWUiOiJDT1ZFUkVEIiwiaWQiOiIxMjM0NTY3OCIsImltYWdlX3VybCI6Imh0dHBzOi8vd3d3LmdhbWVzLmNvbS8xQS5wbmciLCJ0aXRsZSI6IkVhcmx5IEFjY2VzcyBQcmVzYWxlIFNlcmllcyAxQSIsInRvdGFsIjoiMTAwLjAwIiwidHlwZSI6IkJVWV9XRUIyIn0sInBheW1lbnRfaW50ZW50X2lkIjoiMzVmZGRmOTUtZDZhZC00YTVmLWJhZjktODE5ZWU2MDI2M2Q0IiwicGF5bWVudF9tZXRob2RzIjpbeyJlbmFibGVkIjp0cnVlLCJpZCI6ImNhMDFlMjM1LTA1ODItNDdmMC04NzcxLTgwNjNiYWEwMmYxMSIsIm1ldGFkYXRhIjpudWxsLCJtZXRob2QiOiJjcnlwdG8iLCJwcm92aWRlciI6ImNvaW5iYXNlIn0seyJlbmFibGVkIjp0cnVlLCJpZCI6ImM1ZDhiZDE1LWI5OTItNDljMy1hMjdjLWViNjcyZWVmZTUxYSIsIm1ldGFkYXRhIjp7IkFwaVB1YmxpY0tleSI6InBrX3Nib3hfcWltZ2EycTV0MnV5cmNvM2JibmhteHlnMmljIn0sIm1ldGhvZCI6ImNyZWRpdCIsInByb3ZpZGVyIjoiY2hlY2tvdXQifV0sInNlbmRfdG8iOiJQTEFJIEFjY291bnQiLCJ0cmFuc2FjdGlvbl90eXBlIjoiQlVZX1ZEQSJ9"
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "Error code that indicates to the widget that customer needs to go through KYC before they can purchase an item.",
+                "enum": [
+                  "ERR06"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "PAYMENT"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "notes": {
+                "description": "Human-friendly notes for alerting/logging.\n                Should not be used for any programmatic interpretation. By default, it is an empty list.",
+                "items": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "type": "array",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "payment_intent_id": {
+                "description": "The id of created payment intent.",
+                "format": "uuid",
+                "maxLength": 36,
+                "minLength": 36,
+                "nullable": true,
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "It's Base64 encoded format for widget initialization data.",
+                "maxLength": 100000,
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "error_code",
+              "widget_data",
+              "payment_intent_id",
+              "flow",
+              "notes"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "create_payment_intent_kyc_required_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentResponse.KycRequired",
+        "x-validate": null
+      },
+      "unauthorized": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error, should not be used programmatically",
+                "example": "Message explaining the issue in human readable form.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "Status description",
+                "example": "Unauthorized",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code",
+                "example": 401,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "unauthorized",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.JsonErrorResponse.unauthorized",
+        "x-validate": null
+      },
+      "transaction_type_buy_vda": {
+        "description": "Request payload for `BUY_VDA` transaction type",
+        "example": {
+          "buyer": {
+            "email": "email@northernlabs.ca",
+            "id": "unique_customer_id"
+          },
+          "currency": "USD",
+          "idempotency_key": "unique_string",
+          "items": [
+            {
+              "amount": "10.70",
+              "description": "optional item description",
+              "id": "item id",
+              "image_url": "https://someurl.io",
+              "title": "short title"
+            }
+          ],
+          "transaction_type": "BUY_VDA"
+        },
+        "properties": {
+          "buyer": {
+            "anyOf": [
+              {
+                "properties": {
+                  "email": {
+                    "description": "Customer's verified email in the Developer's system.",
+                    "example": "example@email.com",
+                    "format": "email",
+                    "maxLength": 255,
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "id": {
+                    "description": "The unique identifier representing the customer.",
+                    "maxLength": 1000,
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "id",
+                  "email"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            ],
+            "description": "Details of the customer purchasing the item. Either `email` or `wallet` or both must be present.",
+            "required": [
+              "id"
+            ],
+            "x-struct": null,
+            "x-validate": null
+          },
+          "currency": {
+            "description": "Currency of the payment.",
+            "enum": [
+              "USD",
+              "EUR"
+            ],
+            "example": "USD",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "idempotency_key": {
+            "description": "A unique value provided to ensure the operation is idempotent.",
+            "example": "idempotency-key-1",
+            "maxLength": 1000,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "items": {
+            "items": {
+              "description": "Details for the item being purchased.",
+              "properties": {
+                "amount": {
+                  "description": "Decimal Amount of the payment, should be 2 decimal points.",
+                  "example": "100.00",
+                  "maxLength": 100,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "description": {
+                  "description": "Detailed description of the item.",
+                  "example": "Detailed item description",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "id": {
+                  "description": "ID of the item in the Developer's system.",
+                  "example": "item-id-1",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "image_url": {
+                  "description": "URL of the image to display for the item.",
+                  "example": "https://some-image.url/image.png",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "title": {
+                  "description": "Name of the purchased item.",
+                  "example": "Item Title",
+                  "maxLength": 255,
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "required": [
+                "amount",
+                "image_url",
+                "title",
+                "id"
+              ],
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "transaction_type": {
+            "description": "Transaction type for buying Virtual Digital Assets, e.g. game currency.",
+            "enum": [
+              "BUY_VDA"
+            ],
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "items",
+          "transaction_type",
+          "buyer",
+          "currency",
+          "idempotency_key"
+        ],
+        "title": "transaction_type_buy_vda",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyVDA",
+        "x-validate": null
+      },
+      "get_payment_intent_statuses_request": {
+        "additionalProperties": false,
+        "description": "Get statuses request schema",
+        "example": {
+          "payment_intent_ids": [
+            "79381939-1D94-4F34-A8AA-C6D4DF435964",
+            "5B5119E4-320B-4D2C-BF59-7B2BB326D06C",
+            "C08ECA11-1FBD-4E0E-BBD0-E865500A9051"
+          ]
+        },
+        "properties": {
+          "payment_intent_ids": {
+            "items": {
+              "description": "ID of the payment intent.",
+              "format": "uuid",
+              "maxLength": 36,
+              "minLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "payment_intent_ids"
+        ],
+        "title": "get_payment_intent_statuses_request",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.GetPaymentIntentStatusesRequest",
+        "x-validate": null
+      },
+      "seaport_listing_data": {
+        "description": "Listing data object for OpenSea Marketplace.",
+        "properties": {
+          "order_hash": {
+            "description": "Order hash used by Seaport protocol",
+            "example": "0x6e6f72746865726e6c6162732d3e616c6973696e6162686e6f72746865726e6c",
+            "maxLength": 66,
+            "minLength": 66,
+            "pattern": "^0x[a-fA-F0-9]{64}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "protocol": {
+            "description": "Protocol to use for fulfillment",
+            "enum": [
+              "seaport"
+            ],
+            "example": "seaport",
+            "maxLength": 10,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "protocol_address": {
+            "description": "Address of the underlying protocol contract (e.g. seaport 1.6 address)",
+            "example": "0x0000000000000068f116a894984e2db1123eb395",
+            "maxLength": 42,
+            "minLength": 42,
+            "pattern": "^0x[a-fA-F0-9]{40}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "order_hash",
+          "protocol_address",
+          "protocol"
+        ],
+        "title": "seaport_listing_data",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFT.ListingData.Seaport",
+        "x-validate": null
+      },
+      "ERR09": {
+        "properties": {
+          "error": {
+            "description": "Error response for when the payment intent has too many decimal places for the `amount` field.",
+            "properties": {
+              "code": {
+                "description": "Amount has too many decimal places.",
+                "enum": [
+                  "ERR09"
+                ],
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "message": {
+                "description": "Extra information about the error. Should **not** be used programmatically.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "HTTP status description.",
+                "example": "Bad Request",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code.",
+                "example": 400,
+                "format": "int32",
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "code",
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ERR09",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.ErrorResponse.ERR09",
+        "x-validate": null
+      },
+      "kyc_start_customer_banned": {
+        "example": {
+          "data": {
+            "error_code": "ERR01",
+            "flow": "KYC_OCC",
+            "widget_data": null
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "The only field that will be present. When customer is banned, a payment intent is not created, so `widget_data` will be `null`.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "KYC"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "`null` value.",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "error_code",
+              "widget_data",
+              "flow"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "kyc_start_customer_banned",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.StartKycResponse.ERR01",
+        "x-validate": null
+      },
+      "start_kyc_request": {
+        "additionalProperties": false,
+        "example": {
+          "action": "OCC_RULES_ENGINE",
+          "customer": {
+            "external_id": "wallet_address",
+            "wallet": {
+              "address": "0xaac17f958d2ee523a2206206994597c13d831ec2",
+              "blockchain": "sepolia"
+            }
+          }
+        },
+        "properties": {
+          "action": {
+            "enum": [
+              "OCC_RULES_ENGINE",
+              "OCC_PRECLAIM"
+            ],
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "customer": {
+            "additionalProperties": false,
+            "description": "Customer object for propagating customer information from Developer's system.",
+            "properties": {
+              "external_id": {
+                "description": "Unique identifier in the Developer's system, ideally the Primary Key created for the customer in the Developer's database.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "description": "Customer's wallet that will receive the NFT.",
+                "properties": {
+                  "address": {
+                    "description": "The address of the crypto wallet.",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "The blockchain of the wallet.",
+                    "enum": [
+                      "ethereum",
+                      "sepolia",
+                      "polygon",
+                      "amoy",
+                      "solana",
+                      "solana_devnet",
+                      "base",
+                      "base_sepolia",
+                      "avalanche_c",
+                      "avalanche_fuji",
+                      "binance_smart_chain",
+                      "binance_smart_chain_testnet",
+                      "arbitrum_one",
+                      "arbitrum_sepolia"
+                    ],
+                    "example": "sepolia",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "external_id",
+              "wallet"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "customer",
+          "action"
+        ],
+        "title": "start_kyc_request",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.StartKycRequest",
+        "x-validate": null
+      },
+      "get_payment_intent_statuses_response": {
+        "description": "Get statuses response schema",
+        "example": {
+          "data": [
+            {
+              "payment_intent_id": "4ac36ecd-1a38-4e85-84c3-f5173555e481",
+              "status": "Approved"
+            }
+          ]
+        },
+        "properties": {
+          "data": {
+            "items": {
+              "description": "List of payment intent IDs and their associated statuses.",
+              "properties": {
+                "payment_intent_id": {
+                  "description": "ID of the payment intent.",
+                  "example": "4ac36ecd-1a38-4e85-84c3-f5173555e481",
+                  "format": "uuid",
+                  "maxLength": 36,
+                  "minLength": 36,
+                  "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "status": {
+                  "description": "Status of the payment associated with the payment intent.\n              `status` can be one of the three values:\n\n              - `Expired`: The payment intent has expired, because customer abandoned the payment intent.\n\n              - `Created`: The payment has been submitted by the customer, and is being processed for a final decision.\n\n              - `Approved`: The payment has been submitted and completed with success. \n\n              - `Declined`: The payment has been submitted but declined, as a result payment was not successful.",
+                  "enum": [
+                    "Approved",
+                    "Declined",
+                    "Created",
+                    "Expired"
+                  ],
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              },
+              "type": "object",
+              "x-struct": null,
+              "x-validate": null
+            },
+            "maxItems": 1000,
+            "type": "array",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "title": "get_payment_intent_statuses_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.GetPaymentIntentStatusesResponse",
+        "x-validate": null
+      },
+      "kyc_workflow_started": {
+        "example": {
+          "data": {
+            "error_code": null,
+            "flow": "KYC_OCC",
+            "widget_data": "eyJhY2Nlc3NfdG9rZW4iOiAiZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmhjSEJmYVdRaU9pSmxPRFk0WWpCak55MDFObVJtTFRReFpUUXRZVFpsTkMwMk9ESm1PVEkyTUdVM1kySWlMQ0pqZFhOMGIyMWxjbDlwWkNJNklqVTBZbVUxWXpkakxURTFNbVF0TkdaaFppMDROVFl6TFRObE9EZGpNR0l5T1dNME1pSXNJbVZ0WVdsc1gyRmtaSEpsYzNNaU9pSjBaWE4wYVc1blFHNXZjblJvWlhKdWJHRmljeTVqWVNJc0ltVnRZV2xzWDNabGNtbG1hV1ZrSWpwbVlXeHpaU3dpWlhod0lqb3hOamt5TURRMU1USTVMQ0pwYzNNaU9pSm1iM0owWlY5aGRYUm9YM04yWXlJc0ltMWxjbU5vWVc1MFgybGtJam9pTTJWak1qYzNNV0V0Wm1VeFppMDBOR1U1TFdGall6VXRPV0ZtTVdFNU9XVm1aR1l4SWl3aWRHOXJaVzVmZEhsd1pTSTZJbVY0ZEdWeWJtRnNYM1J2YTJWdUluMC5xUjRydmVMejVFQUt1eE91cTFOS0JhQ0ktM2hoMFVRVWlMQmpNaC1WT2QwIiwgImt5Y19hdHRyaWJ1dGVzIjogWyJOQU1FIiwgIkFERFJFU1MiLCAiRE9CIiwgIlBIT05FX05VTUJFUiJdLCAia3ljX3Nlc3Npb24iOiAiNzcyNTVhYmEtZmE3NS00NzgzLWEyYmItNjQ3MWQzZmFlM2QzIn0="
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "Provided for the widget to consume and display the appropriate page.\n              `null` value for cases where kyc process is successfully started.",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "KYC_OCC"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "It's Base64 encoded format for widget initialization.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "widget_data",
+              "flow",
+              "error_code"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "kyc_workflow_started",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.StartKycWorkflowResponse.StartKycSuccessResponse",
+        "x-validate": null
+      },
+      "create_payment_intent_kyw_failed_response": {
+        "example": {
+          "data": {
+            "error_code": "ERR15",
+            "flow": "PAYMENT",
+            "notes": [],
+            "payment_intent_id": null,
+            "widget_data": null
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "Error code that indicates to the widget that KYW failed for wallet(s).",
+                "enum": [
+                  "ERR15"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "PAYMENT"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "notes": {
+                "description": "Human-friendly notes for alerting/logging.\n                Should not be used for any programmatic interpretation. By default, it is an empty list.",
+                "items": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "type": "array",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "payment_intent_id": {
+                "description": "`null` value.",
+                "format": "uuid",
+                "maxLength": 36,
+                "minLength": 36,
+                "nullable": true,
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "`null` value.",
+                "maxLength": 100000,
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "error_code",
+              "widget_data",
+              "payment_intent_id",
+              "flow",
+              "notes"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "create_payment_intent_kyw_failed_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentResponse.KywFailed",
+        "x-validate": null
+      },
+      "solana_nft_data": {
+        "description": "NFT data object for solana denominated NFTs.",
+        "properties": {
+          "token_mint": {
+            "description": "Unique `token_mint` that represents the NFT being purchased.",
+            "example": "AbjQsnzgRWmWaDDDumtkJTGjQNUYEkkLx6syAPwpofyn",
+            "maxLength": 44,
+            "minLength": 32,
+            "pattern": "^[1-9A-HJ-NP-Za-km-z]{32,44}$",
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "token_mint"
+        ],
+        "title": "solana_nft_data",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.BuyNFT.NFTData.Solana",
+        "x-validate": null
+      },
+      "create_payment_intent_v2_response": {
+        "description": "Create Payment Intent Response Schema",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/create_payment_intent_kyc_required_response"
+          },
+          {
+            "$ref": "#/components/schemas/create_payment_intent_banned_customer_response"
+          },
+          {
+            "$ref": "#/components/schemas/create_payment_intent_kyw_failed_response"
+          },
+          {
+            "$ref": "#/components/schemas/create_payment_intent_success_response"
+          }
+        ],
+        "title": "create_payment_intent_v2_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentResponse",
+        "x-validate": null
+      },
+      "error_starting_kyc": {
+        "description": "The error case where API response is with 200 HTTP status code, but KYC cannot be started because customer is banned.\n        The 200 HTTP status code is returned so that Developers would still initialize the widget and provide the response directly to the widget.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/kyc_start_customer_banned"
+          }
+        ],
+        "title": "error_starting_kyc",
+        "type": "object",
+        "x-struct": null,
+        "x-validate": null
+      },
+      "start_kyc_workflow_request": {
+        "additionalProperties": false,
+        "example": {
+          "action": {
+            "level": 1,
+            "type": "OCC_RULES_ENGINE"
+          },
+          "customer": {
+            "external_id": "wallet_address",
+            "wallet": {
+              "address": "0xaac17f958d2ee523a2206206994597c13d831ec2",
+              "blockchain": "sepolia"
+            }
+          }
+        },
+        "properties": {
+          "action": {
+            "properties": {
+              "level": {
+                "description": "Requested KYC level",
+                "maximum": 4,
+                "minimum": 1,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "type": {
+                "enum": [
+                  "OCC_RULES_ENGINE"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "type",
+              "level"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "customer": {
+            "additionalProperties": false,
+            "description": "Customer details",
+            "properties": {
+              "external_id": {
+                "description": "Unique customer identifier",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "wallet": {
+                "additionalProperties": false,
+                "description": "Wallet",
+                "properties": {
+                  "address": {
+                    "description": "Address of wallet",
+                    "example": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "blockchain": {
+                    "description": "Blockchain of wallet",
+                    "enum": [
+                      "base_sepolia"
+                    ],
+                    "example": "base_sepolia",
+                    "type": "string",
+                    "x-struct": null,
+                    "x-validate": null
+                  },
+                  "siwe": {
+                    "additionalProperties": false,
+                    "description": "Sign In With Ethereum data (EIP-4361). Required if application is configured\nrequire wallet signatures.\n",
+                    "properties": {
+                      "message": {
+                        "description": "SIWE message according to EIP-4361",
+                        "maxLength": 400,
+                        "minLength": 100,
+                        "type": "string",
+                        "x-struct": null,
+                        "x-validate": null
+                      },
+                      "signature": {
+                        "description": "Hex encoded (with 0x prefix) personal signature of SIWE message",
+                        "example": "0x0da30e13183dfe0be9d7e6108f92dd2d0561807b684b8c68e6a8257e9faee8a51823dcddd56560cea25d33102e73c7a25f0be96749d733dc18683742ca1924d01b",
+                        "maxLength": 4098,
+                        "minLength": 3,
+                        "pattern": "^0x[a-fA-F0-9]+$",
+                        "type": "string",
+                        "x-struct": null,
+                        "x-validate": null
+                      }
+                    },
+                    "required": [
+                      "message",
+                      "signature"
+                    ],
+                    "type": "object",
+                    "x-struct": null,
+                    "x-validate": null
+                  }
+                },
+                "required": [
+                  "blockchain",
+                  "address"
+                ],
+                "type": "object",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "external_id",
+              "wallet"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "customer",
+          "action"
+        ],
+        "title": "start_kyc_workflow_request",
+        "type": "object",
+        "x-struct": "Elixir.ForteComplianceSvcWeb.OpenApi.Schemas.Novapay.Kyc.StartKycWorkflowRequest",
+        "x-validate": null
+      },
+      "JsonErrorResponse": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error. Should **not** be used programmatically.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "HTTP status description.",
+                "maxLength": 1000,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP status code.",
+                "format": "int32",
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "JsonErrorResponse",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.JsonErrorResponse",
+        "x-validate": null
+      },
+      "create_payment_intent_success_response": {
+        "example": {
+          "data": {
+            "error_code": null,
+            "flow": "PAYMENT",
+            "notes": [],
+            "payment_intent_id": "0f7660c1-a106-481f-acf9-1848e98a7230",
+            "widget_data": "eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKaGNIQmZhV1FpT2lKbE9EWTRZakJqTnkwMU5tUm1MVFF4WlRRdFlUWmxOQzAyT0RKbU9USTJNR1UzWTJJaUxDSmpkWE4wYjIxbGNsOXBaQ0k2SWpVMFltVTFZemRqTFRFMU1tUXROR1poWmkwNE5UWXpMVE5sT0Rkak1HSXlPV00wTWlJc0ltVnRZV2xzWDJGa1pISmxjM01pT2lKMFpYTjBhVzVuUUc1dmNuUm9aWEp1YkdGaWN5NWpZU0lzSW1WdFlXbHNYM1psY21sbWFXVmtJanBtWVd4elpTd2laWGh3SWpveE5qa3lNRFExTVRJNUxDSnBjM01pT2lKbWIzSjBaVjloZFhSb1gzTjJZeUlzSW0xbGNtTm9ZVzUwWDJsa0lqb2lNMlZqTWpjM01XRXRabVV4WmkwME5HVTVMV0ZqWXpVdE9XRm1NV0U1T1dWbVpHWXhJaXdpZEc5clpXNWZkSGx3WlNJNkltVjRkR1Z5Ym1Gc1gzUnZhMlZ1SW4wLnFSNHJ2ZUx6NUVBS3V4T3VxMU5LQmFDSS0zaGgwVVFVaUxCak1oLVZPZDAiLCJpdGVtIjp7ImFtb3VudCI6IjEwMC4wMCIsImN1cnJlbmN5IjoiVVNEIiwiZGVzYyI6IlN0YXJ0ZXIgU2V0IEEiLCJmZWUiOiJDT1ZFUkVEIiwiaWQiOiIxMjM0NTY3OCIsImltYWdlX3VybCI6Imh0dHBzOi8vd3d3LmdhbWVzLmNvbS8xQS5wbmciLCJ0aXRsZSI6IkVhcmx5IEFjY2VzcyBQcmVzYWxlIFNlcmllcyAxQSIsInRvdGFsIjoiMTAwLjAwIiwidHlwZSI6IkJVWV9XRUIyIn0sInBheW1lbnRfaW50ZW50X2lkIjoiMzVmZGRmOTUtZDZhZC00YTVmLWJhZjktODE5ZWU2MDI2M2Q0IiwicGF5bWVudF9tZXRob2RzIjpbeyJlbmFibGVkIjp0cnVlLCJpZCI6ImNhMDFlMjM1LTA1ODItNDdmMC04NzcxLTgwNjNiYWEwMmYxMSIsIm1ldGFkYXRhIjpudWxsLCJtZXRob2QiOiJjcnlwdG8iLCJwcm92aWRlciI6ImNvaW5iYXNlIn0seyJlbmFibGVkIjp0cnVlLCJpZCI6ImM1ZDhiZDE1LWI5OTItNDljMy1hMjdjLWViNjcyZWVmZTUxYSIsIm1ldGFkYXRhIjp7IkFwaVB1YmxpY0tleSI6InBrX3Nib3hfcWltZ2EycTV0MnV5cmNvM2JibmhteHlnMmljIn0sIm1ldGhvZCI6ImNyZWRpdCIsInByb3ZpZGVyIjoiY2hlY2tvdXQifV0sInNlbmRfdG8iOiJQTEFJIEFjY291bnQiLCJ0cmFuc2FjdGlvbl90eXBlIjoiQlVZX1ZEQSJ9"
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "error_code": {
+                "description": "This parameter is `null` when all pre-checks succeeded.",
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "flow": {
+                "enum": [
+                  "PAYMENT"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "notes": {
+                "description": "Human-friendly notes for alerting/logging.\n                Should not be used for any programmatic interpretation. By default, it is an empty list.",
+                "items": {
+                  "type": "string",
+                  "x-struct": null,
+                  "x-validate": null
+                },
+                "type": "array",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "payment_intent_id": {
+                "description": "The id of created payment intent.",
+                "format": "uuid",
+                "maxLength": 36,
+                "minLength": 36,
+                "nullable": true,
+                "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "widget_data": {
+                "description": "It's Base64 encoded format for widget initialization data.",
+                "maxLength": 100000,
+                "nullable": true,
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "error_code",
+              "widget_data",
+              "payment_intent_id",
+              "flow",
+              "notes"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "create_payment_intent_success_response",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentResponse.Success",
+        "x-validate": null
+      },
+      "Error": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ERR02"
+          },
+          {
+            "$ref": "#/components/schemas/ERR09"
+          }
+        ],
+        "title": "Error",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.ErrorResponse.NewPaymentIntentBadRequestError",
+        "x-validate": null
+      },
+      "create_payment_intent_v2_request": {
+        "additionalProperties": false,
+        "description": "Create Payment Intent Request Schema",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/transaction_type_buy_vda"
+          },
+          {
+            "$ref": "#/components/schemas/transaction_type_buy_nft"
+          },
+          {
+            "$ref": "#/components/schemas/transaction_type_buy_nft_mint"
+          },
+          {
+            "$ref": "#/components/schemas/transaction_type_buy_ft"
+          }
+        ],
+        "title": "create_payment_intent_v2_request",
+        "type": "object",
+        "x-struct": "Elixir.FortePaymentSvcWeb.OpenApi.Schemas.Novapay.V2.CreatePaymentIntentRequest",
+        "x-validate": null
+      }
+    },
+    "securitySchemes": {
+      "authorization": {
+        "description": "access_token` returned by the `/auth/v1/oauth2/tokens` API call.",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Forte Payments",
+    "version": "v1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/compliance/v1/kyc": {
+      "post": {
+        "callbacks": {},
+        "description": "Request a KYC session for a specific action.",
+        "operationId": "startKyc",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/start_kyc_request"
+              }
+            }
+          },
+          "description": "Start KYC Request",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The error case where API response is with 200 HTTP status code, but KYC cannot be started because customer is banned.\n        The 200 HTTP status code is returned so that Developers would still initialize the widget and provide the response directly to the widget.",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/kyc_start_customer_banned"
+                    }
+                  ],
+                  "title": "error_starting_kyc",
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              }
+            },
+            "description": "KYC process is successfully started.\nPlease note that this status code will also be returned if a customer is banned, however in this case the widget should still be initiated."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/kyc_started"
+                    }
+                  ],
+                  "title": "start_kyc_success_response",
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              }
+            },
+            "description": "KYC process is successfully started."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "Request a KYC session for a specific action.",
+        "tags": [
+          "Deprecated"
+        ]
+      }
+    },
+    "/compliance/v2/kyc": {
+      "post": {
+        "callbacks": {},
+        "description": "Initiate a KYC workflow.",
+        "operationId": "startKycWorkflow",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/start_kyc_workflow_request"
+              }
+            }
+          },
+          "description": "Initiate a KYC workflow.",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "The error case where API response is with 200 HTTP status code, but KYC cannot be started because customer is banned.\n        The 200 HTTP status code is returned so that Developers would still initialize the widget and provide the response directly to the widget.",
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/kyc_start_customer_banned"
+                    }
+                  ],
+                  "title": "error_starting_kyc",
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              }
+            },
+            "description": "KYC process is successfully started."
+          },
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/kyc_workflow_started"
+                    }
+                  ],
+                  "title": "start_kyc_success_response",
+                  "type": "object",
+                  "x-struct": null,
+                  "x-validate": null
+                }
+              }
+            },
+            "description": "KYC process is successfully started."
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unprocessable_entity"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "Initiate a KYC workflow.",
+        "tags": [
+          "Forte Compliance (Widget)"
+        ]
+      }
+    },
+    "/compliance/v2/kyc/{id}/attributes": {
+      "get": {
+        "callbacks": {},
+        "description": "Retrieve KYC attributes for a given workflow ID.",
+        "operationId": "getKycAttributes",
+        "parameters": [
+          {
+            "description": "Workflow ID",
+            "example": "5d30953c-d52e-46d9-880e-9f7e228a3a0c",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string",
+              "x-struct": null,
+              "x-validate": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_kyc_attributes_response"
+                }
+              }
+            },
+            "description": "KYC Attributes Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/not_found"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/internal_server_error"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "summary": "Get KYC attributes for a specific workflow.",
+        "tags": [
+          "Deprecated"
+        ]
+      }
+    },
+    "/payments/v1/payments/statuses": {
+      "post": {
+        "callbacks": {},
+        "description": "Request statuses in batch for payments by their intent ids.",
+        "operationId": "getPaymentIntentStatuses",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/get_payment_intent_statuses_request"
+              }
+            }
+          },
+          "description": "List of payment intent ids.",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/get_payment_intent_statuses_response"
+                }
+              }
+            },
+            "description": "List of statuses for requested intent ids."
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "authorization": []
+          }
+        ],
+        "summary": "Get statuses in batch for payments by their intent ids.",
+        "tags": [
+          "Forte Payments"
+        ]
+      }
+    },
+    "/payments/v2/intent": {
+      "post": {
+        "callbacks": {},
+        "description": "Create a payment intent for a specific transaction type.",
+        "operationId": "createPaymentIntentV2",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_payment_intent_v2_request"
+              }
+            }
+          },
+          "description": "Payment intent request payload.",
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create_payment_intent_v2_response"
+                }
+              }
+            },
+            "description": "Create Payment Intent Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERR04"
+                }
+              }
+            },
+            "description": "Conflict"
+          }
+        },
+        "security": [
+          {
+            "authorization": []
+          }
+        ],
+        "summary": "Create payment intent",
+        "tags": [
+          "Forte Payments (Widget)"
+        ]
+      }
+    },
+    "/payments/v2/intent/redirect": {
+      "get": {
+        "callbacks": {},
+        "description": "Return a widget data after user has been redirected from merchant website to a self hosted webpage",
+        "operationId": "GetRedirectV2",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create_payment_intent_v2_response"
+                }
+              }
+            },
+            "description": "Get Payment Intent Redirect Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "502": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Gateway"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "authorization": []
+          }
+        ],
+        "summary": "Retrieves widget data redirect",
+        "tags": [
+          "Forte Payments (Redirect)"
+        ]
+      },
+      "post": {
+        "callbacks": {},
+        "description": "Create a payment intent for the customer to be redirected on hosted UI and make a purchase there.",
+        "operationId": "createRedirectV2",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_payment_intent_v2_request"
+              }
+            }
+          },
+          "description": "Payment intent request payload. (BUY_NFT coming soon)",
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/redirect_created"
+                }
+              }
+            },
+            "description": "Create intent redirect response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ERR04"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "default": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "security": [
+          {
+            "authorization": []
+          }
+        ],
+        "summary": "Create intent for widget redirect",
+        "tags": [
+          "Forte Payments (Redirect)"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "authorization": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://sandbox-api.sandbox.lemmax.com",
+      "variables": {}
+    }
+  ],
+  "tags": []
+}

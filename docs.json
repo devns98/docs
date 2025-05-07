@@ -46,19 +46,10 @@
         "tab": "API Reference",
         "groups": [
           {
-            "group": "API Documentation",
+            "group": "Endpoints",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/initiate-kyc-request",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook",
-              "api-reference/endpoint/authentication"
+              "api-reference/endpoint/authentication",
+              "api-reference/endpoint/initiate-kyc-request"              
             ]
           }
         ]

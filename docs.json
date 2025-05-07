@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Forte.io",
   "colors": {
-    "primary": "#32F2CA",
-    "light": "#32F2CA",
-    "dark": "#32F2CA"
+    "primary": "#32f2ca",
+    "light": "#32f2ca",
+    "dark": "#32f2ca"
   },
   "favicon": "/forte_foundation_logo.png",
   "navigation": {

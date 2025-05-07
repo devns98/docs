@@ -4,8 +4,8 @@ description: "Preview changes locally to update your docs"
 ---
 
 <Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. \
-  
+  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding. \\
+
   Please upgrade to `docs.json` before proceeding and delete the legacy `mint.json` file.
 </Info>
 
@@ -123,3 +123,184 @@ We suggest using extensions on your IDE to recognize and format MDX. If you're a
 </AccordionGroup>
 
 Curious about what changed in the CLI version? [Check out the CLI changelog.](https://www.npmjs.com/package/mintlify?activeTab=versions)
+
+---
+
+import Callout from '@components/callout.mdx'
+
+# Forte KYC Integration Guide
+
+Welcome to the Forte KYC and Compliance SDK integration guide for developers.
+
+This guide outlines how to integrate Forte's KYC functionality using a simple widget-based approach. The integration is designed to work seamlessly with Forte's Rules Engine.
+
+---
+
+## Integration Overview
+
+The integration involves three steps:
+
+1. [Obtain Access Token](#1-obtain-access-token)
+2. [Initiate KYC Request](#2-initiate-kyc-request)
+3. [Integrate the KYC Widget](#3-integrate-the-kyc-widget)
+
+If you require support, please contact your Forte hackathon coordinator.
+
+---
+
+## 1. 🛑 Obtain Access Token
+
+Before initiating KYC or payments, you must first authenticate with Forte's OAuth2 API.
+
+### Endpoint
+
+```
+POST /auth/v1/oauth2/token
+```
+
+### Request
+
+```json
+{
+  "client_id": "{{client_id}}",
+  "client_secret": "{{client_secret}}"
+}
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "access": "eyJraWQi...",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+  }
+}
+```
+
+<info>
+  The access token is valid for 1 hour. Be sure to refresh it as needed before making additional requests.
+</info>
+
+---
+
+## 2. ✅ Initiate KYC Request
+
+Use this request to trigger the KYC flow for a user.
+
+### Endpoint
+
+```
+POST /compliance/v2/kyc
+```
+
+### Headers
+
+```
+Authorization: Bearer {access_token}
+```
+
+### Request Body
+
+```json
+{
+  "action": {
+    "type": "OCC_RULES_ENGINE",
+    "level": 1
+  },
+  "customer": {
+    "wallet": {
+      "blockchain": "base_sepolia",
+      "address": "0xF84D68F29664F907eE9d03E534105b7aA6045A"
+    },
+    "external_id": "0xF84D68F29664F907eE9d03E534105b7aA6045A"
+  }
+}
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "flow": "KYC_OCC",
+    "error_code": null,
+    "widget_data": "<widget-data>"
+  }
+}
+```
+
+---
+
+## 3. 🧩 Integrate the KYC Widget
+
+After receiving the widget data from the KYC request, embed and initialize the widget in your frontend.
+
+### Embed the Widget
+
+Place this near the end of your `<body>`:
+
+```html
+<div id="forte-payments-widget-container"></div>
+<script type="module" async src="https://dev-forte-payments-cdn.dev.lemax.com/forte-payments-widget.js"></script>
+```
+
+<warning>
+  Ensure you're always loading the widget directly from the CDN to get the latest updates. Do not cache locally.
+</warning>
+
+### Initialize the Widget
+
+After the widget script is loaded and the data is available:
+
+```html
+<script>
+if (data) {
+  (function init() {
+    window.initFortePaymentsWidget
+      ? window.initFortePaymentsWidget({
+          containerId: 'forte-payments-widget-container',
+          data
+        })
+      : setTimeout(init, 10);
+  })();
+}
+</script>
+```
+
+<tip>
+  In the sandbox environment, use the OTP code `947293` to bypass email verification. In production, emails will be sent to users.
+</tip>
+
+---
+
+## 🖼️ KYC Widget Features
+
+The Forte KYC Widget provides a seamless user experience tailored to jurisdictional and risk-based requirements.
+
+### Key Features
+
+- **Progressive Verification**: Users only provide what’s necessary, depending on the asset, location, and spend level.
+- **Compliance First**: Integrates tightly with the Forte Rules Engine for dynamic enforcement.
+- **Responsive Design**: Works across desktop and mobile views.
+- **Sandbox Support**: Quick testing setup for hackathons and development environments.
+
+---
+
+## 🧪 Sandbox Setup Summary
+
+- **Blockchain**: `base_sepolia`
+- **Wallet Format**: Ethereum-compatible address
+- **Email OTP**: `947293` for bypass
+- **Access Token Validity**: 1 hour
+
+---
+
+## 🙌 Need Help?
+
+If you’re participating in the Consensus Hackathon and get stuck, reach out to a Forte team member or refer to our full [API Reference](#).
+
+---
+
+This concludes the KYC Integration Guide. You're now ready to use Forte KYC with the Rules Engine\!

@@ -1,0 +1,203 @@
+{
+  "components": {
+    "responses": {},
+    "schemas": {
+      "authorize_external_service_request": {
+        "example": {
+          "client_id": "<your_client_id>",
+          "client_secret": "<your_client_secret>"
+        },
+        "properties": {
+          "client_id": {
+            "description": "The `client_id` value provided by your Account Manager.",
+            "maximum": 100,
+            "minimum": 1,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          },
+          "client_secret": {
+            "description": "The `client_secret` value provided by your Account Manager.\n        Please make sure that this value is stored securely in your system, and not exposed to the Front End(s).",
+            "maximum": 100,
+            "minimum": 1,
+            "type": "string",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "client_id",
+          "client_secret"
+        ],
+        "title": "authorize_external_service_request",
+        "type": "object",
+        "x-struct": "Elixir.ForteAuthSvcWeb.OpenApi.Schemas.S2S.AuthorizeExternalServiceRequest",
+        "x-validate": null
+      },
+      "authorize_external_service_response": {
+        "example": {
+          "data": {
+            "access_token": "<your_access_token>",
+            "expires_in": 3600,
+            "token_type": "Bearer"
+          }
+        },
+        "properties": {
+          "data": {
+            "properties": {
+              "access_token": {
+                "description": "The short-living token to use for authenticating and authorizing\n            API calls.",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "expires_in": {
+                "description": "This value indicates how long the `access_token` is valid for.\n            It is recommended that you request a new token before the expiry.",
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "token_type": {
+                "description": "The type of the token. This value needs to be prepended to the `access_token`,\n             with a space in between, and then the resulting value should be provided\n             under the `Authorization` HTTP request header to successfully make the subsequent\n             API calls (`Bearer <access_token>`).",
+                "enum": [
+                  "Bearer"
+                ],
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "access_token",
+              "token_type",
+              "expires_in"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "authorize_external_service_response",
+        "type": "object",
+        "x-struct": "Elixir.ForteAuthSvcWeb.OpenApi.Schemas.S2S.AuthorizeExternalServiceResponse",
+        "x-validate": null
+      },
+      "unauthorized": {
+        "properties": {
+          "error": {
+            "properties": {
+              "message": {
+                "description": "Extra information about the error, should not be used programmatically.",
+                "example": "invalid params",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "reason": {
+                "description": "Status description for the HTTP Status code.",
+                "example": "Unauthorized",
+                "type": "string",
+                "x-struct": null,
+                "x-validate": null
+              },
+              "status": {
+                "description": "HTTP Status code.",
+                "example": 401,
+                "type": "integer",
+                "x-struct": null,
+                "x-validate": null
+              }
+            },
+            "required": [
+              "status",
+              "reason"
+            ],
+            "type": "object",
+            "x-struct": null,
+            "x-validate": null
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "unauthorized",
+        "type": "object",
+        "x-struct": "Elixir.ForteAuthSvcWeb.OpenApi.Schemas.JsonErrorResponse.unauthorized",
+        "x-validate": null
+      }
+    },
+    "securitySchemes": {
+      "authorization": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Forte Authentication",
+    "version": "v1.0.0"
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/auth/v1/oauth2/token": {
+      "post": {
+        "callbacks": {},
+        "description": "Use your `client_id` and `client_secret` to\n    request an access token to authorize your API requests.",
+        "operationId": "ForteAuthSvcWeb.S2SController.authorize_external_service",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authorize_external_service_request"
+              }
+            }
+          },
+          "description": "request_body",
+          "required": false
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorize_external_service_response"
+                }
+              }
+            },
+            "description": "Authorized Response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorized"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          }
+        },
+        "summary": "Request `access_token` for API access.",
+        "tags": [
+          "Authentication"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "authorization": []
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://sandbox-api.sandbox.lemmax.com",
+      "variables": {}
+    }
+  ],
+  "tags": []
+}

@@ -1,0 +1,42 @@
+---
+title: "Initiate KYC Request"
+description: "Trigger a KYC verification request using Forte’s Compliance Service."
+---
+
+Send a `POST` request to `/compliance/v2/kyc` to begin the KYC flow.
+
+### Headers
+
+```
+Authorization: Bearer {access_token}
+```
+
+### Request
+
+```json
+{
+  "action": {
+    "type": "OCC_RULES_ENGINE",
+    "level": 1
+  },
+  "customer": {
+    "wallet": {
+      "blockchain": "base_sepolia",
+      "address": "0xF84D68F29664F907eE9d03E534105b7aA6045A"
+    },
+    "external_id": "0xF84D68F29664F907eE9d03E534105b7aA6045A"
+  }
+}
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "flow": "KYC_OCC",
+    "error_code": null,
+    "widget_data": "<widget-data>"
+  }
+}
+```

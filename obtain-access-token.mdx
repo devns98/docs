@@ -1,0 +1,35 @@
+---
+title: "Obtain Access Token"
+description: "Authenticate using OAuth2 to get started with the Forte KYC integration."
+---
+
+Before initiating KYC or payments, you must authenticate with Forte's OAuth2 API.
+
+### Endpoint
+
+```
+POST /auth/v1/oauth2/token
+```
+
+### Request
+
+```json
+{
+  "client_id": "{{client_id}}",
+  "client_secret": "{{client_secret}}"
+}
+```
+
+### Response
+
+```json
+{
+  "data": {
+    "access": "eyJraWQi...",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+  }
+}
+```
+
+> ⚠️ The access token is valid for 1 hour. Refresh it as needed before making additional requests.

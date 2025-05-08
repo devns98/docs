@@ -1,0 +1,95 @@
+---
+title: "Product Guide"
+description: "Preview how each KYC Level works and looks in the Forte Compliance Widget."
+---
+
+# Forte KYC Widget – Product Guide
+
+This guide helps developers quickly visualize how the Forte KYC widget behaves at different KYC Levels. Each level unlocks a new set of identity requirements and UI steps.
+
+## KYC Level 1 – Email Verification
+
+### <Icon icon="badge-check" size={22} /> Identity Requirements:
+
+- Valid email address
+- Wallet screening
+
+### <Icon icon="image" size={22} /> UI Screens:
+
+1. Email input
+
+1. OTP verification
+
+![Email Input](https://your-image-path.com/kyc1-email.png)
+
+\
+![OTP Verification](https://your-image-path.com/kyc1-otp.png)
+
+---
+
+## 🔁 KYC Level 2 – KYC Lite
+
+### 🔐 Identity Requirements:
+
+- Email verification (Level 1)
+- First & last name
+- Verified phone number
+- Self-attested country
+
+### 🖼️ UI Screens:
+
+1. Identity Preview (Full name \+ phone)
+2. Phone input & verification (OTP)
+3. AML screening (background check)
+4. Success or review screen
+
+![Identity Preview](https://your-image-path.com/kyc2-preview.png)
+
+\
+![Phone Input](https://your-image-path.com/kyc2-phone.png)
+
+\
+![Success](https://your-image-path.com/kyc2-success.png)
+
+---
+
+## 🔒 KYC Level 3 – Standard KYC
+
+### 🔐 Identity Requirements:
+
+- Email, Name, Phone (Level 2)
+- Residential address
+- Government-issued ID
+- Live selfie
+- Passed SumSub AML & biometric verification
+
+### 🖼️ UI Screens:
+
+1. Identity Preview for missing vectors
+2. Address input
+3. QR code for SumSub mobile link
+4. Waiting for photos
+5. Success / Pending / Rejected
+
+![Address Input](https://your-image-path.com/kyc3-address.png)
+
+\
+![SumSub QR](https://your-image-path.com/kyc3-qr.png)
+
+\
+![Waiting](https://your-image-path.com/kyc3-waiting.png)
+
+\
+![Final Result](https://your-image-path.com/kyc3-status.png)
+
+---
+
+---
+
+> For testing, you can use wallet addresses on `base_sepolia` when initiating KYC request
+
+<Tip>
+  Use OTP `947293` to bypass email verification in sandbox mode.
+
+  Use OTP `123456` to bypass phone SMS verification in sandbox mode.
+</Tip>

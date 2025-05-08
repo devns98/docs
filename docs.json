@@ -71,8 +71,8 @@
     }
   },
   "logo": {
-    "light": "/forte_foundation_logo.png",
-    "dark": "/forte_foundation_logo.png"
+    "light": "/forte_brandcolor.svg",
+    "dark": "/forte_white.svg"
   },
   "navbar": {
     "links": [

@@ -1,89 +1,61 @@
 ---
-title: "Product Guide"
-description: "Preview how each KYC Level works and looks in the Forte Compliance Widget."
+title: "Product Overview"
+description: "Preview Forte Compliance features and KYC levels."
 ---
 
-# Forte KYC Widget – Product Guide
+# Forte Compliance – Overview
 
-This guide helps developers quickly visualize how the Forte KYC widget behaves at different KYC Levels. Each level unlocks a new set of identity requirements and UI steps.
+This guide helps developers understand how the Forte KYC Widget works across multiple verification levels. Each level introduces new identity requirements and corresponding UI steps, ensuring compliance without compromising user experience.
 
-## KYC Level 1 – Email Verification
+### <Icon icon="arrow-progress" size={22} />  KYC Flow Architecture
 
-### <Icon icon="badge-check" size={22} /> Identity Requirements:
+Forte implements a **graduated KYC model**, where each level builds upon the previous one.
 
-- Valid email address
-- Wallet screening
+> Example: If a user is prompted for Level 3 verification but has not completed Level 2, the widget will automatically walk them through all Level 2 and Level 3 requirements in sequence.
 
-### <Icon icon="image" size={22} /> UI Screens:
+This progressive structure removes the need for custom logic or separate API calls at each step, simplifying integration for developers.
 
-1. Email input
-2. OTP verification
+### <Icon icon="play-pause" size={22} /> Session Resumption
 
-![Email Input](https://your-image-path.com/kyc1-email.png)
+The Forte KYC Widget is state-aware and supports **resumable flows**. If a user drops off mid-session, you can re-initiate the flow with the same wallet and level, and the widget will resume from the last completed checkpoint.
 
-\
-![OTP Verification](https://your-image-path.com/kyc1-otp.png)
+To resume:
 
----
+- Use the same `wallet.address` and `level`
+- Call the [Initiate KYC Request API](/api-reference/endpoint/initiate-kyc-request)
+- Embed the returned `widget_data` again
 
-## 🔁 KYC Level 2 – KYC Lite
+> 🧪 For Hackathon, you can use wallet addresses on `base_sepolia` when initiating KYC request.
 
-### 🔐 Identity Requirements:
+### <Icon icon="link" size={22} /> **On-Chain Compliance Levels**
 
-- First & last name
-- Verified phone number
-- Self-attested country
+Forte Compliance is **interoperable** with the Forte Rules Engine to publish a wallet’s KYC level as an**on-chain access signal** . This allows developers and smart contracts to enforce rules based on a wallet’s compliance status, without accessing sensitive off-chain data or relying on external APIs.
 
-### 🖼️ UI Screens:
+While the KYC widget and API can operate independently of Rules Engine, publishing access levels on-chain makes them interoperable with on-chain protocols, decentralized applications, token-gated experiences, etc.
 
-1. Full name
-2. Phone input & verification (OTP)
+**How It Works**
 
-![Identity Preview](https://your-image-path.com/kyc2-preview.png)
+1. A user completes a KYC Level session via the Forte widget.
+2. The Compliance service evaluates the user and assigns an access level (e.g., Level 2) to the associated wallet.
+3. The assigned level is published to a dedicated **on-chain compliance contract** using the Rules Engine policy execution layer.
+4. Smart contracts can query this registry to determine whether a wallet meets the minimum access level for gated actions.
 
-\
-![Phone Input](https://your-image-path.com/kyc2-phone.png)
+**Example Use Cases**
 
-\
-![Success](https://your-image-path.com/kyc2-success.png)
+- **Smart Contract Access Control**: Permit mints, purchases, or staking only for wallets that have completed Level 2\+ verification.
+- **Gameplay Unlocks**: Enable reward claiming, in-game asset upgrades, or PvP matchmaking based on verified compliance level.
+- **Fiat On/Off-Ramp Routing**: Restrict flows involving regulated payment methods to pre-screened wallets.
 
----
+<Info>
+  **Notes:**
 
-## 🔒 KYC Level 3 – Standard KYC
+  - Access levels committed on-chain via the Forte Compliance \<\> [Forte Rules Engine](https://forterulesengine.io) integration do not require any custom policy to function out-of-the-box.
+  - If Forte Compliance is integrated, verification and on-chain access level updates are handled via Forte Compliance upon KYC verification.
+  - No user PII is exposed on-chain; only the wallet address and corresponding level are stored.
+</Info>
 
-### 🔐 Identity Requirements:
+## Next Steps
 
-- Email, Full Name, Verified Phone Number (Level 2)
-- Residential address
-- Government-issued ID
-- Live selfie
-
-### 🖼️ UI Screens:
-
-1. Identity Preview for missing vectors
-2. Address input
-3. QR code for verification flow link (mobile)
-4. Success / Pending / Rejected
-
-![Address Input](https://your-image-path.com/kyc3-address.png)
-
-\
-![SumSub QR](https://your-image-path.com/kyc3-qr.png)
-
-\
-![Waiting](https://your-image-path.com/kyc3-waiting.png)
-
-\
-![Final Result](https://your-image-path.com/kyc3-status.png)
-
----
-
----
-
-> For testing, you can use wallet addresses on `base_sepolia` when initiating KYC request
-
-<Tip>
-  Use OTP `947293` to bypass email verification in sandbox mode.
-
-  Use OTP `123456` to bypass phone SMS verification in sandbox mode.
-</Tip>
+<Card title="KYC Levels" icon="sparkles" href="/KYC_levels_guide">
+  Preview KYC widget flows 
+</Card>

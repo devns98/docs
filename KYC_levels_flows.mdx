@@ -1,0 +1,229 @@
+---
+title: "Verification Flows"
+description: "Preview UI flows and identity requirements for KYC Levels 1 through 3 in the Forte Compliance (KYC) widget."
+---
+
+# Forte KYC Widget – Product Guide
+
+This guide helps developers quickly visualize how the Forte KYC widget behaves at different KYC Levels. Each level unlocks a new set of identity requirements and UI steps.
+
+## KYC: Level 1
+
+### <Icon icon="badge-check" size={22} /> Identity Requirements:
+
+- Email address verification
+- Wallet screening
+
+### <Icon icon="image" size={22} /> UI Screens:
+
+1. Email input
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL01_02.svg"
+/>
+
+2. OTP verification
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL01_04.svg"
+/>
+
+> 🧪 Use the OTP `947293` in sandbox mode to bypass email verification.
+
+## KYC: Level 2
+
+### <Icon icon="badge-check" size={22} /> Identity Requirements:
+
+- Full name
+- Verified phone number
+
+### <Icon icon="image" size={22} /> UI Screens:
+
+1. Requirements preview
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_05.svg"
+/>
+
+2. Full name
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_06.svg"
+/>
+
+3. Phone input & verification (SMS OTP)
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_07.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_08.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_09.svg"
+/>
+
+> 🧪 Use the OTP `123456` in sandbox mode to bypass Phone SMS OTP verification.
+
+4. Success / Pending / Rejected
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_10.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_12.svg"
+/>
+
+<Tip>
+  **KYC Review - Alternative scenarios**
+
+  For Hackathon, identity verification checks have been **disabled** in the Sandbox environment, always resulting in a `KYC Review - Verified` status.
+
+  \
+  For any questions, reach out to a Forte team member for guidance.
+</Tip>
+
+## KYC: Level 3
+
+### <Icon icon="badge-check" size={22} /> Identity Requirements:
+
+- Full name
+- Verified phone number
+
+<Note>
+  The above identity steps only apply if the user has not completed Level 2 verification.
+</Note>
+
+- Residential address
+- Government-issued ID
+- Live selfie
+
+### <Icon icon="image" size={22} /> UI Screens:
+
+1. Identity preview
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL03_04b-1.svg"
+/>
+
+2. Full name
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL03_05b.svg"
+/>
+
+3. Residential address
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04.svg"
+/>
+
+4. Phone input & verification (SMS OTP)
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-1.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-2.svg"
+/>
+
+> 🧪 Use the OTP `123456` in sandbox mode to bypass Phone SMS OTP verification.
+
+5. ID document verification & live selfie
+
+> **QR code for verification flow link**
+>
+> Users can scan the QR code to prompt user flow that captures their ID photos and live selfie via their mobile devices
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-3.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-4.svg"
+/>
+
+<Tip>
+  **ID document capture**
+
+  For Hackathon, identity verification checks have been **disabled** in the Sandbox environment.
+
+  Users can capture a photo of any object (E.g, blank paper) instead of their government ID document to trigger a successful verification.
+
+  \
+  For any questions, reach out to a Forte team member for guidance.
+</Tip>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-5.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-6.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-7.svg"
+/>
+
+<Tip>
+  **Live selfie capture**
+
+  Users can capture a live selfie as per instructions provided in the UI. However, no identity verification checks will be run in the sandbox environment.
+
+  \
+  For any questions, reach out to a Forte team member for guidance.
+</Tip>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_04-8.svg"
+/>
+
+6. Success / Pending / Rejected
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_10.svg"
+/>
+
+<img
+  style={{ borderRadius:"0.5rem" }}
+  src="/kyc_images/LEVEL02_12.svg"
+/>
+
+<Tip>
+  **KYC Review - Alternative scenarios**
+
+  For Hackathon, identity verification checks have been **disabled** in the Sandbox environment, always resulting in a `KYC Review - Verified` status.
+
+  \
+  For any questions, reach out to a Forte team member for guidance.
+</Tip>
+
+---
+
+---

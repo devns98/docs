@@ -26,7 +26,8 @@
               "overview",
               "obtain-access-token",
               "initiate-kyc-request",
-              "integrate-widget"
+              "integrate-widget",
+              "acl_contract"
             ]
           },
           {

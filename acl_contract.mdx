@@ -11,7 +11,7 @@ This contract is especially useful for enforcing compliance logic directly withi
 
 > Network: Base Sepolia
 >
-> Contract Address: `0x352983E9C846453F841DBEc4d1464bdD928F6105` | [Link <Icon icon="link-horizontal" />](https://sepolia.basescan.org/address/0x352983E9C846453F841DBEc4d1464bdD928F6105#code)
+> Contract Address: `0x352983E9C846453F841DBEc4d1464bdD928F6105` | [Link ](https://sepolia.basescan.org/address/0x352983E9C846453F841DBEc4d1464bdD928F6105#code)
 >
 > Status: Verified & Published
 
@@ -21,9 +21,9 @@ This contract is especially useful for enforcing compliance logic directly withi
   Only the Forte Compliance widget is authorized to set or remove access levels. When a user completes a required compliance check, the system updates their access level on-chain using this contract. This creates a transparent, verifiable source of truth that can be queried by any smart contract or application.
 </Info>
 
-## **Retrieving a User’s Access Level:**
+## Retrieving a User’s Access Level
 
-To check a user’s access level, call the `getAccessLevel` function using their wallet address. This is a read-only function that can be queried on-chain or from a frontend.
+To check a user’s access level, call the `getAccessLevel` function, passing in their wallet address. This is a read-only function that can be queried on-chain or from your dApp's frontend.
 
 > _function getAccessLevel(address \_account) public view returns (uint8)_
 
@@ -31,8 +31,8 @@ To check a user’s access level, call the `getAccessLevel` function using their
 
 This function will return a uint8 value:
 
-- 0: Indicates that the user has not been verified.
-- 1-3: Indicates the Access Level the user has achieved through the Forte Compliance widget.
+- `0`: Indicates that the user has not been verified.
+- `1-3`: Indicates the Access Level the user has reached through the Forte Compliance widget.
 
 <Tip>
   You can integrate this function into your dApp frontend using [<u>ethers.js</u>](http://ethers.js), or [<u>web3.js</u>](http://web3.js)  to dynamically allow/disallow actions based on access level.
@@ -61,9 +61,3 @@ This function will return a uint8 value:
   "stateMutability": "view"
 }
 ```
-
-<Info>
-  **Who can set Access Levels?**
-
-  Only the Forte Compliance widget is authorized to set or remove access levels. When a user completes a required compliance check, the system updates their access level on-chain using this contract. This creates a transparent, verifiable source of truth that can be queried by any smart contract or application.
-</Info>

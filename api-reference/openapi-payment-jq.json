@@ -2398,7 +2398,7 @@
     },
     "securitySchemes": {
       "authorization": {
-        "description": "The 'access_token` returned by the `POST /auth/v1/oauth2/token` API call.",
+        "description": "The `access_token` returned by the `POST /auth/v1/oauth2/token` API call.",
         "scheme": "bearer",
         "type": "http"
       }

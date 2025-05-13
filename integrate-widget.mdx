@@ -3,7 +3,7 @@ title: "Integrate Widget"
 description: "Embed and initialize the Forte Compliance widget in your frontend application."
 ---
 
-After receiving `widget_data` from the access level verification request, embed and initialize the widget.
+After receiving `data` from the access level verification request, embed and initialize the widget.
 
 ### Embed the Widget
 
@@ -17,6 +17,8 @@ After receiving `widget_data` from the access level verification request, embed 
 > Please ensure that you are not storing and loading the widget from cache. It should always be fetched from the CDN to ensure the latest updates are available for users.
 
 ### Initialize the Widget
+
+Ensure that you pass the entire `data` object (received back from the access level verification request) into the widget initialization.
 
 ```html
 <script>

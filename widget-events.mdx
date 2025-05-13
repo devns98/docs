@@ -23,7 +23,9 @@ The following Custom Events will be emitted by the Widget, and are available for
     ```
   </Accordion>
   <Accordion title="FortePaymentsWidgetClosed" icon="person-to-door">
-    This event is emitted upon the user **closing the widget prematurely, before finishing the verification flow**. For example, if the user closes the widget before submitting their name will fire this event.
+    This event is emitted upon the user **closing the widget prematurely, before finishing the verification flow**.
+
+    For example, if the user closes the widget before submitting their name, this event will be fired. Cloksing the widget from any other non-terminal page in the flow will do the same.
 
     ![LEVEL02 06 Sv](/kyc_images/LEVEL02_06.svg)
 

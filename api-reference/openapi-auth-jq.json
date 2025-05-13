@@ -129,12 +129,6 @@
         "x-validate": null
       }
     },
-    "securitySchemes": {
-      "authorization": {
-        "scheme": "bearer",
-        "type": "http"
-      }
-    }
   },
   "info": {
     "title": "Forte Authentication",

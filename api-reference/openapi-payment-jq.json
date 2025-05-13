@@ -1776,7 +1776,7 @@
       "start_kyc_request": {
         "additionalProperties": false,
         "example": {
-          "action": "OCC_RULES_ENGINE",
+          "action": "OCC_RULES_ENGINE_V2",
           "customer": {
             "external_id": "wallet_address",
             "wallet": {
@@ -1788,8 +1788,7 @@
         "properties": {
           "action": {
             "enum": [
-              "OCC_RULES_ENGINE",
-              "OCC_PRECLAIM"
+              "OCC_RULES_ENGINE_V2"
             ],
             "type": "string",
             "x-struct": null,
@@ -2111,7 +2110,7 @@
         "example": {
           "action": {
             "level": 1,
-            "type": "OCC_RULES_ENGINE"
+            "type": "OCC_RULES_ENGINE_V2"
           },
           "customer": {
             "external_id": "wallet_address",
@@ -2126,7 +2125,7 @@
             "properties": {
               "level": {
                 "description": "Requested KYC level",
-                "maximum": 4,
+                "maximum": 3,
                 "minimum": 1,
                 "type": "integer",
                 "x-struct": null,
@@ -2134,7 +2133,7 @@
               },
               "type": {
                 "enum": [
-                  "OCC_RULES_ENGINE"
+                  "OCC_RULES_ENGINE_V2"
                 ],
                 "type": "string",
                 "x-struct": null,

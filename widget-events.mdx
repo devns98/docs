@@ -5,6 +5,31 @@ description: "Overview of client-side events emitted by the Widget on certain us
 
 The Forte Compliance widget will emit client-side events that provide information on when a user closes the widget. These events help you to handle post-verification flow UX as desired.
 
-## [PLACEHOLDER]
+## Event Types
 
 Not attached to docs.json.
+
+<AccordionGroup>
+  <Accordion title="FortePaymentsWidgetLoaded" icon="download">
+    
+  </Accordion>
+  <Accordion title="FortePaymentsWidgetClosed" icon="person-to-door">
+    
+  </Accordion>
+  <Accordion title="ForteKYCSuccess" icon="circle-check">
+    This event is emitted 
+  </Accordion>
+  <Accordion title="ForteKYCFailed" icon="circle-xmark">
+    
+  </Accordion>
+</AccordionGroup>
+
+## Event Listener Snippet
+
+```javascript
+window.addEventListener('ForteKYCSuccess', e =>
+        // e.detail has the paymentIntentId
+        console.log(e.detail)
+        )
+      );
+```

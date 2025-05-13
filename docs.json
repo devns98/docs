@@ -25,7 +25,7 @@
             "pages": [
               "overview",
               "obtain-access-token",
-              "initiate-kyc-request",
+              "initiate-access-level-request",
               "integrate-widget",
               "acl_contract"
             ]

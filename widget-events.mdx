@@ -3,33 +3,54 @@ title: "Widget Events"
 description: "Overview of client-side events emitted by the Widget on certain user actions."
 ---
 
-The Forte Compliance widget will emit client-side events that provide information on when a user closes the widget. These events help you to handle post-verification flow UX as desired.
+The Forte Compliance widget will emit client-side events that provide information on when a user closes the widget. These events help you to handle post-verification flow UX as desired, based on the different Event Types listed below.
+
+> **Note**: Not yet attached to docs.json. Remove once attached.
 
 ## Event Types
 
-Not attached to docs.json.
+The following Custom Events will be emitted by the Widget, and are available for you to attach listeners to on your client-side.
 
 <AccordionGroup>
   <Accordion title="FortePaymentsWidgetLoaded" icon="download">
-    
+    This event is emitted once the page is ready to initialize the Forte Widget for the user. One implementation can be wrapping the initalization inside this event as follows:
+
+    ```javascript
+    window.addEventListener('FortePaymentsWidgetLoaded', () => {
+      window.initFortePaymentsWidget({
+        containerId: 'forte-payments-widget-container',
+        data: paymentIntentResponse.data
+      })
+    });
+    ```
   </Accordion>
   <Accordion title="FortePaymentsWidgetClosed" icon="person-to-door">
-    
+    This event is emitted upon the user **closing the widget prematurely, before finishing the verification flow**. For example, if the user closes the widget before submitting their name will fire this event.
+
+    ![LEVEL02 06 Sv](/kyc_images/LEVEL02_06.svg)
+
+    <Info>
+      Users will resume the flow from the last piece of information requested. Previously provided information will not need to be provided again within the widget.
+    </Info>
   </Accordion>
   <Accordion title="ForteKYCSuccess" icon="circle-check">
-    This event is emitted 
+    This event is emitted upon the user closing the widget from the following screen, after a **successful verification** for the desired access level.
+
+    ![LEVEL02 10 Sv](/kyc_images/LEVEL02_10.svg)
   </Accordion>
   <Accordion title="ForteKYCFailed" icon="circle-xmark">
-    
+    This event is emitted upon the user closing the widget from the following screen, after an **unsuccessful verification** for the desired access level.
   </Accordion>
 </AccordionGroup>
 
 ## Event Listener Snippet
 
+Here is an example of how you can attach an event listener on your client-side, in this case allowing you to customize UX after a successful verification (_eg. "Action Unlocked\!"_).
+
 ```javascript
-window.addEventListener('ForteKYCSuccess', e =>
-        // e.detail has the paymentIntentId
-        console.log(e.detail)
-        )
-      );
+window.addEventListener('ForteKYCSuccess', function(event) {
+		console.log("User completed the verification flow and closed widget!");
+		// Implement post-(succesful)-verification flow as desired
+	}
+);
 ```

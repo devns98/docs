@@ -150,7 +150,7 @@
               }
             }
           },
-          "description": "request_body",
+          "description": "Provide the Client Credentials linked above.",
           "required": false
         },
         "responses": {

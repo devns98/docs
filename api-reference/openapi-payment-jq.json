@@ -1734,21 +1734,21 @@
           "data": {
             "properties": {
               "error_code": {
-                "description": "The only field that will be present. When customer is banned, a payment intent is not created, so `widget_data` will be `null`.",
+                "description": "Normally `null`. When customer is banned, this will equal `ERR01`, and `widget_data` will be `null`.",
                 "type": "string",
                 "x-struct": null,
                 "x-validate": null
               },
               "flow": {
                 "enum": [
-                  "KYC"
+                  "KYC_OCC"
                 ],
                 "type": "string",
                 "x-struct": null,
                 "x-validate": null
               },
               "widget_data": {
-                "description": "`null` value.",
+                "description": "Base64 encoded - when not-null, widget can be initialized by passing entire `data` object.",
                 "nullable": true,
                 "type": "string",
                 "x-struct": null,

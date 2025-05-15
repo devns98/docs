@@ -2178,37 +2178,6 @@
                     "type": "string",
                     "x-struct": null,
                     "x-validate": null
-                  },
-                  "siwe": {
-                    "additionalProperties": false,
-                    "description": "Sign In With Ethereum data (EIP-4361). Required if application is configured\nrequire wallet signatures.\n",
-                    "properties": {
-                      "message": {
-                        "description": "SIWE message according to EIP-4361",
-                        "maxLength": 400,
-                        "minLength": 100,
-                        "type": "string",
-                        "x-struct": null,
-                        "x-validate": null
-                      },
-                      "signature": {
-                        "description": "Hex encoded (with 0x prefix) personal signature of SIWE message",
-                        "example": "0x0da30e13183dfe0be9d7e6108f92dd2d0561807b684b8c68e6a8257e9faee8a51823dcddd56560cea25d33102e73c7a25f0be96749d733dc18683742ca1924d01b",
-                        "maxLength": 4098,
-                        "minLength": 3,
-                        "pattern": "^0x[a-fA-F0-9]+$",
-                        "type": "string",
-                        "x-struct": null,
-                        "x-validate": null
-                      }
-                    },
-                    "required": [
-                      "message",
-                      "signature"
-                    ],
-                    "type": "object",
-                    "x-struct": null,
-                    "x-validate": null
                   }
                 },
                 "required": [

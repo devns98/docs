@@ -24,7 +24,6 @@
             "group": "Integration Guide",
             "pages": [
               "overview",
-              "client-credentials",
               "obtain-access-token",
               "initiate-access-level-request",
               "integrate-widget",
